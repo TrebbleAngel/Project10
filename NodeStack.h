@@ -37,22 +37,49 @@ class NodeStack{
                    const NodeStack<A, B> & nodeStack);  
   public:
   //Default Ctor, initializes m_top to NULL 							(1) 
-	NodeStack():m_top(NULL){
-		;
-	}
+	NodeStack():m_top(NULL){;}
 	
   //Parameterized ctor, initializes NodeStack with providied values		(2)  
-	NodeStack(size_t count, const T & value);
+	NodeStack(size_t count, const T & value){
+		size_t i = 0;
+		m_top = new Node<P>(value, NULL);
+		while(i < (count - 1)){
+			push(value);
+			i++;
+		}
+	}
 	
   //Copy ctor, makes a new NodeStack with values of provided			(3)            
-	NodeStack(const NodeStack & other);
+	NodeStack(const NodeStack & other){
+		m_top = new Node<P>(other.m_top->data(), NULL);
+		Node<P> * topcpy = m_top;
+		Node<P> * othercpy = other.m_top;
+		while(othercpy != NULL){
+			othercpy = othercpy->m_next;
+			topcpy = topcpy->m_next;
+			topcpy = new Node(othercpy->data(), NULL);
+		}
+	}
 	
   //Dtor, kills NodeStack object :(										(4)                       
-	~NodeStack();                                                 
+	~NodeStack(){
+		clear();
+	}                                                 
 	
   //Assignment operator, copies one Node Stack object with rhs NodeStack
   //																	(5)
-    NodeStack &operator=(const NodeStack & rhs);
+    NodeStack &operator=(const NodeStack & rhs){
+		if(*this != &rhs){
+			m_top = new Node<P>(rhs.m_top->data(), NULL);
+			Node<P> * rhscpy = rhs.m_top;
+			while(othercpy != NULL){
+				othercpy = othercpy->m_next;
+				
+			}	
+		}else{
+			return *this;
+		}
+	}
     
   //top function (non-const), returns a usable data value for m_top		(6a) 
 	T & top(){
@@ -73,19 +100,20 @@ class NodeStack{
 		
   //pop function, delete top value of Stack								(8) 
 	void pop(){
-		if(!empty){
+		if(!empty()){
 			Node<P> * topNode = m_top;
 			m_top = m_top->m_next;
 			delete topNode;
+			topNode = NULL;
 		}else{
-			std::cout << "This stack is empty!!!" << std::endl; 
+			std::cout << "This stack is empty" << std::endl; 
 		}
 	}								 
 	
   //size function, transverses through Nodes to find sizeof Stack		(9)
 	size_t size() const{
 		size_t i = 0;
-		if(!empty){
+		if(!empty()){
 			Node<T> *size = m_top;
 			while(size != NULL){
 				i++;
@@ -112,6 +140,10 @@ class NodeStack{
 		if(!empty()){
 			while(m_top != NULL){
 				pop();
+				if(empty()){
+					std::cout << "This Stack is now empty." << std::endl;
+					break;
+				}
 			}
 		}else{
 			std::cout << "This Stack is empty!!!" << std::endl;
@@ -119,7 +151,19 @@ class NodeStack{
 	}                                            
 		
   //serialize function, initializes a ostream variable for << operator	(13)
-	void serialize(std::ostream & os) const;
+	void serialize(std::ostream & os) const{
+		if(!empty()){
+			os << '[';
+			while(m_top != NULL){
+				if(m_top->m_next == NULL){
+					os << m_top->data() << ']';
+				}else{
+					os << m_top->data() << ", ";
+				}
+				m_top = m_top->m_next;
+			}
+		}
+	}
 	
 	                               
 	 
