@@ -15,14 +15,19 @@
 
 #include <iostream>
 
+template <typename T> class NodeStack;
+template <typename T> std::ostream & operator<<(std::ostream & os,   //(i)
+                   const NodeStack<T> & nodeStack);
+
+
 template <typename T>
 class Node{
 	 
-	friend class NodeStack;
+	friend class NodeStack<T>;
 	    
   public: 
 	Node(): m_next(NULL){;} 
-	Node(const T & data, Node * next = NULL):m_next(next), m_data(data){;}
+	Node(const T & data, Node<T> * next = NULL):m_next(next), m_data(data){;}
 	T & data(){return m_data;} 
 	const T & data() const{return m_data;} 
   private: 
@@ -30,19 +35,18 @@ class Node{
 	T m_data;                                   
 }; 
 
-template <typename T, typename P>
+template <typename T>
 class NodeStack{
-  template <typename A, typename B>
-  friend std::ostream & operator<<(std::ostream & os,   //(i)
-                   const NodeStack<A, B> & nodeStack);  
+  friend std::ostream & operator<< <> (std::ostream & os,
+                   const NodeStack<T> & nodeStack);  
   public:
   //Default Ctor, initializes m_top to NULL 							(1) 
 	NodeStack():m_top(NULL){;}
 	
   //Parameterized ctor, initializes NodeStack with providied values		(2)  
-	NodeStack(size_t count, const T & value){
+	NodeStack(size_t count, const T & value=T()){
 		size_t i = 0;
-		m_top = new Node<P>(value, NULL);
+		m_top = new Node<T>(value, NULL);
 		while(i < (count - 1)){
 			push(value);
 			i++;
@@ -50,14 +54,14 @@ class NodeStack{
 	}
 	
   //Copy ctor, makes a new NodeStack with values of provided			(3)            
-	NodeStack(const NodeStack & other){
-		m_top = new Node<P>(other.m_top->data(), NULL);
-		Node<P> * topcpy = m_top;
-		Node<P> * othercpy = other.m_top;
+	NodeStack(const NodeStack<T> & other){
+		m_top = new Node<T>(other.m_top->data(), NULL);
+		Node<T> * topcpy = m_top;
+		Node<T> * othercpy = other.m_top;
 		while(othercpy != NULL){
 			othercpy = othercpy->m_next;
 			topcpy = topcpy->m_next;
-			topcpy = new Node(othercpy->data(), NULL);
+			topcpy = new Node<T>(othercpy->data(), NULL);
 		}
 	}
 	
@@ -68,12 +72,12 @@ class NodeStack{
 	
   //Assignment operator, copies one Node Stack object with rhs NodeStack
   //																	(5)
-    NodeStack &operator=(const NodeStack & rhs){
+    NodeStack &operator=(const NodeStack<T> & rhs){
 		if(*this != &rhs){
-			m_top = new Node<P>(rhs.m_top->data(), NULL);
-			Node<P> * rhscpy = rhs.m_top;
-			while(othercpy != NULL){
-				othercpy = othercpy->m_next;
+			m_top = new Node<T>(rhs.m_top->data(), NULL);
+			Node<T> * rhscpy = rhs.m_top;
+			while(rhscpy != NULL){
+				rhscpy = rhscpy->m_next;
 				
 			}	
 		}else{
@@ -93,7 +97,7 @@ class NodeStack{
 	
   //push function, inserts provided value to Stack						(7)   
 	void push(const T & value){
-		Node<P> * newNode = new Node<P>(value, NULL);
+		Node<T> * newNode = new Node<T>(value, NULL);
 		newNode->m_next = m_top;
 		m_top = newNode;
 	}          
@@ -101,7 +105,7 @@ class NodeStack{
   //pop function, delete top value of Stack								(8) 
 	void pop(){
 		if(!empty()){
-			Node<P> * topNode = m_top;
+			Node<T> * topNode = m_top;
 			m_top = m_top->m_next;
 			delete topNode;
 			topNode = NULL;
