@@ -16,8 +16,6 @@
 
 #include <iostream>
 
-//template <typename T> std::ostream & operator<<(std::ostream & os, 											const ArrayStack<T> & arrayStack);
-
 template <typename T> class ArrayStack;
 template <typename T> std::ostream & operator<<(std::ostream & os, 
 						const ArrayStack<T> & arrayStack);
@@ -31,7 +29,7 @@ class ArrayStack{
 								const ArrayStack<T> & arrayStack); 
   public:
   //fashf;lkasj
-	ArrayStack();
+	ArrayStack():m_top(0){;}
 	
   //fasdkjf;lkasdj
 	ArrayStack(size_t count, const T & value);
@@ -46,31 +44,78 @@ class ArrayStack{
 	ArrayStack & operator= (const ArrayStack<T> & rhs);
 	
   //fasddfa
-	T & top();
+	T & top(){return m_top;}
 	
   //sdfas
-	const T & top() const;
+	const T & top() const{return m_top;}
 	
   //dafs
-	void push(const T & value);
+	void push(const T & value){
+		m_top += 1;
+		m_container[m_top] = value;
+	}
 	
  //sadfasd
-	void pop();
+	void pop(){
+		if(!empty){
+			delete m_container[m_top];
+			m_top -= 1;
+		}else{
+			;
+		}
+	}
 	
   //sdfasd	
-	size_t size() const;
+	size_t size() const{
+		return m_top;
+	}
 	
   //sdafsdf
-	bool empty() const;
+	bool empty() const{
+		if(m_top == 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
   //sdafdsa
-	bool full() const;
+	bool full() const{
+		if(m_top == MAX_STACKSIZE){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
   //dasfda
-	void clear();
+	void clear(){
+		if(!empty){
+			while(!empty){
+				pop();
+			}
+		}else{
+			;
+		}
+	}
 	
   //dsafdsa
-	void serialize(std::ostream & os) const;
+	void serialize(std::ostream & os) const{
+		if(!empty){
+			os << '[';
+			size_t i = size();
+			while(i != 0){
+				if((m_top - 1) == 0){
+					os << m_container[i] << ']';
+				}else{
+					os << m_container[i] << ", ";
+				}
+				i++;
+			}
+		}
+		os << std::endl;
+	}
+	
 
 
   private:

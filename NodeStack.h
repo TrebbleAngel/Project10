@@ -16,7 +16,7 @@
 #include <iostream>
 
 template <typename T> class NodeStack;
-template <typename T> std::ostream & operator<<(std::ostream & os,   //(i)
+template <typename T> std::ostream & operator<<(std::ostream & os,
                    const NodeStack<T> & nodeStack);
 
 
@@ -110,7 +110,7 @@ class NodeStack{
 			delete topNode;
 			topNode = NULL;
 		}else{
-			std::cout << "This stack is empty" << std::endl; 
+			;
 		}
 	}								 
 	
