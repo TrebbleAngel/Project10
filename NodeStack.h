@@ -45,23 +45,27 @@ class NodeStack{
 	
   //Parameterized ctor, initializes NodeStack with providied values		(2)  
 	NodeStack(size_t count, const T & value=T()){
-		size_t i = 0;
-		m_top = new Node<T>(value, NULL);
-		while(i < (count - 1)){
-			push(value);
-			i++;
+		if(count < 1){
+			size_t i = 0;
+			m_top = NULL;
+				while(i < count){
+				push(value);
+				i++;
+			}
+		}else{
+			std::cout << "INVALID COUNT NUMBER, NODESTACK INITIAILZED WITH NULL VALUES." << std::endl;
+			m_top = NULL;
 		}
 	}
 	
   //Copy ctor, makes a new NodeStack with values of provided			(3)            
 	NodeStack(const NodeStack<T> & other){
-		m_top = new Node<T>(other.m_top->data(), NULL);
 		Node<T> * topcpy = m_top;
 		Node<T> * othercpy = other.m_top;
 		while(othercpy != NULL){
+			topcpy = new Node<T>(othercpy->data(), NULL);
 			othercpy = othercpy->m_next;
 			topcpy = topcpy->m_next;
-			topcpy = new Node<T>(othercpy->data(), NULL);
 		}
 	}
 	
@@ -97,9 +101,13 @@ class NodeStack{
 	
   //push function, inserts provided value to Stack						(7)   
 	void push(const T & value){
-		Node<T> * newNode = new Node<T>(value, NULL);
-		newNode->m_next = m_top;
-		m_top = newNode;
+		if(!empty){
+			Node<T> * newNode = new Node<T>(value, NULL);
+			newNode->m_next = m_top;
+			m_top = newNode;
+		}else{
+			m_top = new Node<T>(value, NULL);
+		}
 	}          
 		
   //pop function, delete top value of Stack								(8) 
