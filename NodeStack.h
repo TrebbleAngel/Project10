@@ -60,6 +60,7 @@ class NodeStack{
 	
   //Copy ctor, makes a new NodeStack with values of provided			(3)            
 	NodeStack(const NodeStack<T> & other){
+		m_top = NULL;
 		Node<T> * topcpy = m_top;
 		Node<T> * othercpy = other.m_top;
 		while(othercpy != NULL){
@@ -78,12 +79,14 @@ class NodeStack{
   //																	(5)
     NodeStack &operator=(const NodeStack<T> & rhs){
 		if(*this != &rhs){
-			m_top = new Node<T>(rhs.m_top->data(), NULL);
+			m_top = NULL;
+			Node<T> * topcpy = m_top;
 			Node<T> * rhscpy = rhs.m_top;
 			while(rhscpy != NULL){
+				m_top = new Node<T>(rhscpy->data(), NULL);
 				rhscpy = rhscpy->m_next;
-				
-			}	
+				topcpy = top->m_next;
+			}
 		}else{
 			return *this;
 		}
@@ -176,9 +179,7 @@ class NodeStack{
 			}
 		}
 	}
-	
-	                               
-	 
+
   private: 
 	T * m_top;
 };	
