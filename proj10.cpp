@@ -90,14 +90,22 @@ int main()
 			  
   //FULL FUNCTION															(11)
 	ArrayStack full(1000, value);
-	NodeStacl neverfull(1001, value);
+	NodeStack neverfull(1001, value);
 	std::cout << "Testing full function:\nFull ArrayStack: " << 
 			  << std::boolalpha << full.full() << "\nRegular ArrayStack: " 
 			  << std::boolalpha << aTop.full() << "\nNodeStacks have no limit, "
 			  << "NodeStack of size 1001: " << std::boolalpha 
 			  << neverfull.full() << std::endl;
 			  
+  //CLEAR FUNCTION															(12)
+	std::cout << "Testing the clear function:\nFull ArrayStack, bye bye: ";
+	full.clear();
+	std::cout << full << "\nNodeStack, bye bye: ";
+	neverfull.clear();
+	std::cout << neverfull << std::endl;
 	
+  //DTORS CALLED															 (4)
+	std::cout << "And they're gone" << std::endl;
 	
 	
 	

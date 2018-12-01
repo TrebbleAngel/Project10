@@ -28,34 +28,35 @@ class ArrayStack{
   friend std::ostream & operator<< <> (std::ostream & os, 
 								const ArrayStack<T> & arrayStack); 
   public:
-  //fashf;lkasj
+  //Default Ctor, initializes m_top to 0 							(1)
 	ArrayStack():m_top(0){;}
 	
-  //fasdkjf;lkasdj
+  //Parameterized ctor, initializes ArrayStack with providied values		(2)
 	ArrayStack(size_t count, const T & value);
 	
-  //safdsa
+  //Copy ctor, makes a new ArrayStack with values of other ArrayStack object			(3)
 	ArrayStack(const ArrayStack<T> & other);
 	
-  //fsafda
+  //Dtor, kills ArrayStack object :(										(4) 
 	~ArrayStack();
 	
-  //fasdfa
+  //Assignment operator, copies one ArrayStack object with rhs ArrayStack
+  //																	(5)
 	ArrayStack & operator= (const ArrayStack<T> & rhs);
 	
-  //fasddfa
+  //top function (non-const), returns a usable data value for m_top		(6a) 
 	T & top(){return m_top;}
 	
-  //sdfas
+  //top function (const), returns a display only data value for m_top 	(6b)
 	const T & top() const{return m_top;}
 	
-  //dafs
+  //push function, inserts provided value to Stack						(7) 
 	void push(const T & value){
 		m_top += 1;
 		m_container[m_top] = value;
 	}
 	
- //sadfasd
+ //pop function, delete top value of Stack								(8) 
 	void pop(){
 		if(!empty){
 			delete m_container[m_top];
@@ -65,12 +66,12 @@ class ArrayStack{
 		}
 	}
 	
-  //sdfasd	
+  //size function, transverses through Nodes to find sizeof Stack		(9)	
 	size_t size() const{
 		return m_top;
 	}
 	
-  //sdafsdf
+  //empty function, checks if Stack is empty							(10)
 	bool empty() const{
 		if(m_top == 0){
 			return true;
@@ -79,7 +80,7 @@ class ArrayStack{
 		}
 	}
 	
-  //sdafdsa
+  //full function, check if the Stack is full							(11)
 	bool full() const{
 		if(m_top == MAX_STACKSIZE){
 			return true;
@@ -88,7 +89,7 @@ class ArrayStack{
 		}
 	}
 	
-  //dasfda
+  //clear function, clears Stack of values								(12)
 	void clear(){
 		if(!empty){
 			while(!empty){
@@ -99,7 +100,7 @@ class ArrayStack{
 		}
 	}
 	
-  //dsafdsa
+  //serialize function, initializes a ostream variable for << operator	(13)
 	void serialize(std::ostream & os) const{
 		if(!empty){
 			os << '[';
