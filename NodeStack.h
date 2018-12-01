@@ -38,7 +38,10 @@ class Node{
 template <typename T>
 class NodeStack{
   friend std::ostream & operator<< <> (std::ostream & os,
-                   const NodeStack<T> & nodeStack);  
+                   const NodeStack<T> & nodeStack){
+		nodeStack.serialize(os); 
+		return os;
+	}  
   public:
   //Default Ctor, initializes m_top to NULL 							(1) 
 	NodeStack():m_top(NULL){;}
@@ -48,12 +51,13 @@ class NodeStack{
 		if(count < 1){
 			size_t i = 0;
 			m_top = NULL;
-				while(i < count){
+			while(i < count){
 				push(value);
 				i++;
 			}
 		}else{
-			std::cout << "INVALID COUNT NUMBER, NODESTACK INITIAILZED WITH NULL VALUES." << std::endl;
+			std::cout << "INVALID COUNT NUMBER, NODESTACK INITIAILZED WITH "
+					  << "NULL VALUES." << std::endl;
 			m_top = NULL;
 		}
 	}
@@ -73,6 +77,7 @@ class NodeStack{
   //Dtor, kills NodeStack object :(										(4)                       
 	~NodeStack(){
 		clear();
+		std::cout << "NODESTACK DTOR CALLED." << std::endl;
 	}                                                 
 	
   //Assignment operator, copies one Node Stack object with rhs NodeStack
@@ -83,10 +88,11 @@ class NodeStack{
 			Node<T> * topcpy = m_top;
 			Node<T> * rhscpy = rhs.m_top;
 			while(rhscpy != NULL){
-				m_top = new Node<T>(rhscpy->data(), NULL);
+				topcpy = new Node<T>(rhscpy->data(), NULL);
 				rhscpy = rhscpy->m_next;
-				topcpy = top->m_next;
+				topcpy = topcpy->m_next;
 			}
+			return *this;
 		}else{
 			return *this;
 		}
@@ -121,7 +127,7 @@ class NodeStack{
 			delete topNode;
 			topNode = NULL;
 		}else{
-			;
+			std::cout << "This Stack is empty!!!" << std::endl;
 		}
 	}								 
 	
@@ -135,7 +141,7 @@ class NodeStack{
 				size = size->m_next;
 				}
 			} 
-			return i;
+		return i;
 	}                
 	
   //empty function, checks if Stack is empty							(10)
@@ -153,11 +159,10 @@ class NodeStack{
   //clear function, clears Stack of values								(12)
 	void clear(){
 		if(!empty()){
-			while(m_top != NULL){
+			while(!empty()){
 				pop();
 				if(empty()){
 					std::cout << "This Stack is now empty." << std::endl;
-					break;
 				}
 			}
 		}else{
@@ -178,6 +183,7 @@ class NodeStack{
 				m_top = m_top->m_next;
 			}
 		}
+		os << std::endl; 
 	}
 
   private: 

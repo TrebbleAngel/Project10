@@ -41,7 +41,8 @@ class ArrayStack{
 				i++;
 			}
 		}else{
-			std::cout << "INVALID COUNT NUMBER, ARRAY NOT INITIALIZED" << std::endl;
+			std::cout << "INVALID COUNT NUMBER, ARRAY NOT INITIALIZED" 
+					  << std::endl;
 			m_top = 0;
 		}
 	}
@@ -58,8 +59,8 @@ class ArrayStack{
 	
   //Dtor, kills ArrayStack object :(										(4) 
 	~ArrayStack(){
-	std::cout << "Calling ArrayStack Dtor." << std::endl;
 	clear();	
+	std::cout << "ARRAYSTACK DTOR CALLED." << std::endl;
 	}
 	
   //Assignment operator, copies one ArrayStack object with rhs ArrayStack
@@ -79,15 +80,19 @@ class ArrayStack{
 	}
 	
   //top function (non-const), returns a usable data value for m_top		(6a) 
-	T & top(){return m_top;}
+	T & top(){return m_container[m_top];}
 	
   //top function (const), returns a display only data value for m_top 	(6b)
-	const T & top() const{return m_top;}
+	const T & top() const{return m_container[m_top];}
 	
   //push function, inserts provided value to Stack						(7) 
 	void push(const T & value){
-		m_top += 1;
-		m_container[m_top] = value;
+		if((m_top + 1) < MAX_STACKSIZE){
+			m_top += 1;
+			m_container[m_top] = value;
+		}else{
+			std::cout << "OVERFLOW IMMENINT IF PUSHED, NO GO." << std::endl;
+		}
 	}
 	
  //pop function, delete top value of Stack								(8) 
@@ -96,7 +101,7 @@ class ArrayStack{
 			delete m_container[m_top];
 			m_top -= 1;
 		}else{
-			;
+			std::cout << "This Stack is empty!!!" << std::endl;
 		}
 	}
 	
@@ -125,21 +130,24 @@ class ArrayStack{
 	
   //clear function, clears Stack of values								(12)
 	void clear(){
-		if(!empty){
-			while(!empty){
-				pop();
+		if(!empty()){
+			while(!empty()){
+				pop()
+				if(empty()){
+					std::cout << "This Stack is now empty." << std::endl;
+				}
 			}
 		}else{
-			;
+			std::cout << "This Stack is empty!!!" << std::endl;
 		}
 	}
 	
   //serialize function, initializes a ostream variable for << operator	(13)
 	void serialize(std::ostream & os) const{
-		if(!empty){
+		if(!empty()){
 			os << '[';
 			size_t i = size();
-			while(i != 0){
+			while(i != m_top){
 				if((m_top - 1) == 0){
 					os << m_container[i] << ']';
 				}else{
