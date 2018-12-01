@@ -32,17 +32,51 @@ class ArrayStack{
 	ArrayStack():m_top(0){;}
 	
   //Parameterized ctor, initializes ArrayStack with providied values		(2)
-	ArrayStack(size_t count, const T & value);
+	ArrayStack(size_t count, const T & value){
+		if(count <= MAX_STACKSIZE || count < 1){
+			size_t i = 0;
+			m_top = count;
+			while(i != m_top){
+				m_container[i] = value;
+				i++;
+			}
+		}else{
+			std::cout << "INVALID COUNT NUMBER, ARRAY NOT INITIALIZED" << std::endl;
+			m_top = 0;
+		}
+	}
 	
   //Copy ctor, makes a new ArrayStack with values of other ArrayStack object			(3)
-	ArrayStack(const ArrayStack<T> & other);
+	ArrayStack(const ArrayStack<T> & other){
+		size_t i = 0;
+		m_top = other.m_top;
+		while(i != m_top){
+			m_container[i] = other.m_container[i];
+			i++;
+		}
+	}
 	
   //Dtor, kills ArrayStack object :(										(4) 
-	~ArrayStack();
+	~ArrayStack(){
+	std::cout << "Calling ArrayStack Dtor." << std::endl;
+	clear();	
+	}
 	
   //Assignment operator, copies one ArrayStack object with rhs ArrayStack
   //																	(5)
-	ArrayStack & operator= (const ArrayStack<T> & rhs);
+	ArrayStack & operator= (const ArrayStack<T> & rhs){
+		if(*this != &rhs){
+			size_t i = 0;
+			m_top = rhs.m_top;
+			while(i < m_top){
+				m_container[i] = rhs.m_container[i];
+				i++;
+			}
+			return *this;
+		}else{
+			return *this;
+		}
+	}
 	
   //top function (non-const), returns a usable data value for m_top		(6a) 
 	T & top(){return m_top;}
@@ -113,6 +147,8 @@ class ArrayStack{
 				}
 				i++;
 			}
+		}else{
+			os << "This Stack is empty!!!";
 		}
 		os << std::endl;
 	}
