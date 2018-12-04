@@ -8,6 +8,8 @@
  * We are to use this generalized class to work with the DataType class provided
  * 	in last data structure projects, creating our own test driver to ensure
  * 	functionality. 
+ * 
+ * Resources used: Powerpoints from lecture & Labs, 
  */
 	
 #ifndef NODESTACK_H_

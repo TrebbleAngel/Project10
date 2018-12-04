@@ -8,6 +8,8 @@
  * The NodeStack & Array classes are to templated for generalization, and are
  *   designated to work with the DataType class provided in the previous data
  * 	 structure projects.
+ * 
+ * 	Resources used: Powerpoints from lecture & Labs,
  */
 
 #include <iostream>
