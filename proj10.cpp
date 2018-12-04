@@ -37,15 +37,17 @@ friend std::istream & operator>>(std::istream & is, DataType & dataType);
     double m_doubleVal;
 };
 
+
+
 int main()
 {
   //DEFAULT CTOR															 (1)
-	ArrayStack thisaempty;
-	NodeStack thisnempty;
+	ArrayStack<DataType> thisaempty;
+	NodeStack<DataType> thisnempty;
 	
 	std::cout << "Test these Default ctors\nArrayStack: " << thisaempty
 			  << "NodeStack: " << thisnempty << std::endl;
-			  
+	/*		  
   //PARAMETERIZED CTOR 														 (2)
 	DataType garbage(5, 5.0);
 	DataType alsogarbage(6, 6.0);
@@ -130,7 +132,7 @@ int main()
 	std::cout << "And they're gone" << std::endl;
 	
 	
-	
+	*/
 	
 	
 	return 0;

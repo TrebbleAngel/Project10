@@ -132,7 +132,7 @@ class ArrayStack{
 	void clear(){
 		if(!empty()){
 			while(!empty()){
-				pop()
+				pop();
 				if(empty()){
 					std::cout << "This Stack is now empty." << std::endl;
 				}
@@ -168,4 +168,10 @@ class ArrayStack{
 	size_t m_top;
 };
 
+template<typename T>
+std::ostream & operator<< (std::ostream & os, 
+								const ArrayStack<T> & arrayStack){
+	arrayStack.serialize(os);
+	return os;
+}
 #endif //ARRAYSTACK_H_

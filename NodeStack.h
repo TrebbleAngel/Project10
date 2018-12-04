@@ -38,10 +38,7 @@ class Node{
 template <typename T>
 class NodeStack{
   friend std::ostream & operator<< <> (std::ostream & os,
-                   const NodeStack<T> & nodeStack){
-		nodeStack.serialize(os); 
-		return os;
-	}  
+                   const NodeStack<T> & nodeStack);
   public:
   //Default Ctor, initializes m_top to NULL 							(1) 
 	NodeStack():m_top(NULL){;}
@@ -190,5 +187,11 @@ class NodeStack{
 	T * m_top;
 };	
 
+template<typename T>
+std::ostream & operator<< (std::ostream & os,
+                   const NodeStack<T> & nodeStack){
+	nodeStack.serialize(os); 
+	return os;
+} 
 
 #endif //NODESTACK_H_
