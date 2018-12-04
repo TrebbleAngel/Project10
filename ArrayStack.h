@@ -35,10 +35,10 @@ class ArrayStack{
 	
   //Parameterized ctor, initializes ArrayStack with providied values		(2)
 	ArrayStack(size_t count, const T & value){
-		if(count <= MAX_STACKSIZE || count < 1){
+		if(count <= MAX_STACKSIZE || count >= 1){
 			size_t i = 0;
 			m_top = count;
-			while(i != m_top){
+			while(i <= m_top){
 				m_container[i] = value;
 				i++;
 			}
@@ -53,7 +53,7 @@ class ArrayStack{
 	ArrayStack(const ArrayStack<T> & other){
 		size_t i = 0;
 		m_top = other.m_top;
-		while(i != m_top){
+		while(i <= m_top){
 			m_container[i] = other.m_container[i];
 			i++;
 		}
@@ -68,7 +68,7 @@ class ArrayStack{
   //Assignment operator, copies one ArrayStack object with rhs ArrayStack
   //																	(5)
 	ArrayStack & operator= (const ArrayStack<T> & rhs){
-		if(*this != &rhs){
+		if(this != &rhs){
 			size_t i = 0;
 			m_top = rhs.m_top;
 			while(i < m_top){
@@ -90,8 +90,9 @@ class ArrayStack{
   //push function, inserts provided value to Stack						(7) 
 	void push(const T & value){
 		if((m_top + 1) < MAX_STACKSIZE){
-			m_top += 1;
+			++m_top;
 			m_container[m_top] = value;
+			size_t i = 0
 		}else{
 			std::cout << "OVERFLOW IMMENINT IF PUSHED, NO GO." << std::endl;
 		}
@@ -99,8 +100,9 @@ class ArrayStack{
 	
  //pop function, delete top value of Stack								(8) 
 	void pop(){
-		if(!empty){
-			delete m_container[m_top];
+		if(!empty()){
+			T deleteaddress = m_container[m_top];
+			delete &deleteaddress;
 			m_top -= 1;
 		}else{
 			std::cout << "This Stack is empty!!!" << std::endl;
@@ -148,9 +150,9 @@ class ArrayStack{
 	void serialize(std::ostream & os) const{
 		if(!empty()){
 			os << '[';
-			size_t i = size();
-			while(i != m_top){
-				if((m_top - 1) == 0){
+			size_t i = 0;
+			while(i < m_top){
+				if((m_top - 1) == i){
 					os << m_container[i] << ']';
 				}else{
 					os << m_container[i] << ", ";

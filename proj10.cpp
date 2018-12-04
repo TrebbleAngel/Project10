@@ -44,57 +44,57 @@ friend std::istream & operator>>(std::istream & is, DataType & dataType);
 int main()
 {
   //DEFAULT CTOR															 (1)
-	ArrayStack<DataType> thisaempty;
-	NodeStack<DataType> thisnempty;
+	ArrayStack<int> aempty;
+	NodeStack<int> nempty;
 	
-	std::cout << "Test these Default ctors\nArrayStack: " << thisaempty
-			  << "NodeStack: " << thisnempty << std::endl;
-	/*		  
+	std::cout << "Test these Default ctors\nArrayStack: " << aempty
+			  << "NodeStack: " << nempty << std::endl;
+			  
   //PARAMETERIZED CTOR 														 (2)
-	DataType garbage(5, 5.0);
-	DataType alsogarbage(6, 6.0);
-	ArrayStack gettingsomewhere(3, garbage);
-	NodeStack alsogettingsomewhere(5, alsogarbage);
+	//DataType garbage(5, 5.0);
+	//DataType alsogarbage(6, 6.0);
+	ArrayStack<int> gettingsomewhere(3, 2);
+	NodeStack<int> alsogettingsomewhere(5, 2);
 	
 	std::cout << "Test these Parameterized ctors\nArrayStack: " 
 			  << gettingsomewhere << "NodeStack: " << alsogettingsomewhere	
 			  << std::endl;
 	
   //COPY CTOR 																 (3)
-	ArrayStack cat(gettingsomewhere);
-	NodeStack kitty(alsogettingsomewhere)
+	ArrayStack<int> cat(gettingsomewhere);
+	NodeStack<int> kitty(alsogettingsomewhere);
 	
 	std::cout << "Test these Copy ctors\nArrayStack: " << cat << "NodeStack: "
 			  << kitty << std::endl;
-	
+
   //ASSIGNMENT OPERATOR 													 (5)
 	std::cout << "Assignemnt operator: Changing default to copy.\nOld "
-			  << "ArrayStack: " << thisaempty;
-	thisaempty = cat;
-	std::cout << "New ArrayStack: " << thisaempty;
+			  << "ArrayStack: " << aempty;
+	aempty = cat;
+	std::cout << "New ArrayStack: " << aempty;
 	
-	std::cout << "Old NodeStack: " << thisnempty;
-	thisnempty = kitty;
-	std::cout << "New NodeStack: " << thisnempty;
-	
+	std::cout << "\nOld NodeStack: " << nempty;
+	nempty = kitty;
+	std::cout << "New NodeStack: " << nempty;
+
   //TOP FUNCTION															 (6)
-	DataType value(9, 9.0);
-	DataType nodeValue(10, 10.0);
-	ArrayStack aTop(2, value);
-	NodeStack  nTop(2, nodeValue);
+	//DataType value(9, 9.0);
+	//DataType nodeValue(10, 10.0);
+	ArrayStack<int> aTop(3, 9);
+	NodeStack<int>  nTop(2, 10);
 	
-	std::cout << "Top value of the stack:\nArrayStack:" << aTop.top();
+	std::cout << "\nTop value of the stack:\nArrayStack: " << aTop.top()
 			  << "\nNodeStack: " << nTop.top() << std::endl;
 	
   //PUSH FUNCTION 															 (7)
-	DataType aPush(22,22.0);
-	DataType nPush(23, 23.0);
-	aTop.push(aPush);
-	nTop.push(nPush);
+	//DataType aPush(22,22.0);
+	//DataType nPush(23, 23.0);
+	aTop.push(9);
+	nTop.push(23);
 	
-	std::cout << "Testing push function:\nArrayStack: " << aTop << "NodeStack: "
+	std::cout << "\nTesting push function:\nArrayStack: " << aTop << "NodeStack: "
 			  << nTop << std::endl;
-			  
+			 /* 
   //POP FUNCTION															 (8)
 	std::cout << "Testing pop function:\nOld ArrayStack: " << aTop << 
 			  << "Old NodeStack: " << nTop
